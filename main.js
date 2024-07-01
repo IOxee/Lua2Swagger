@@ -314,7 +314,7 @@ async function handleOutputFormat(file) {
                 await settings();
                 break;
             default:
-                console.log("Non -valid option.");
+                console.log("Non-valid option.");
         }
     } catch (err) {
         console.log(err);
@@ -324,22 +324,16 @@ async function handleOutputFormat(file) {
 async function settings() {
     const file = 'settings.json';
     const menu = await inquirer.showListPrompt("Select an option:", [
-        "Output format",
-        "Output directory",
-        "Input directory"
+        "Output format (WIP)",
+        "Back"
     ]);
 
     switch (menu) {
-        case "Output format":
+        case "Output format (WIP)":
             await handleOutputFormat(file);
             break;
-        case "Output directory":
-            let output = inquirer.inputOption("Enter the Output Directory:");
-            updateKeySettings(file, 'output_directory', output);
-            break;
-        case "Input directory":
-            let input = inquirer.inputOption("Enter the entrance directory:");
-            updateKeySettings(file, 'input_directory', input);
+        case "Back":
+            main();
             break;
         default:
             console.log("Non -valid option.");
