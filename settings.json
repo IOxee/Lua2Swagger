@@ -1,0 +1,5 @@
+{
+  "format": "json",
+  "output_directory": "output",
+  "input_directory": "input"
+}

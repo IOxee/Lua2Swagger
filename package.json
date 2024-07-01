@@ -1,0 +1,19 @@
+{
+  "name": "lua2swagger",
+  "version": "1.0.0",
+  "description": "This software converts Lua files into Swagger JSON documentation, tailored for the FiveM framework. It efficiently generates detailed API documentation for RegisterNUICallbacks and other Lua code sections annotated with LuaDoc comments, streamlining the documentation process for your FiveM scripts.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "keywords": [
+    "FiveM"
+  ],
+  "git_repository": "https://github.com/IOxee/Lua2Swagger",
+  "author": "IOxee",
+  "license": "MIT",
+  "dependencies": {
+    "inquirer": "^9.3.2",
+    "js-yaml": "^4.1.0"
+  }
+}

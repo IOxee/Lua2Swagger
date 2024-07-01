@@ -1,0 +1,754 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Lua API Documentation",
+    "version": "1.0.0",
+    "description": "Auto-generated API documentation from Lua source files."
+  },
+  "paths": {
+    "/getTasks": {
+      "post": {
+        "summary": "Retrieve a list of all tasks.",
+        "description": "Get detailed information about all tasks available in the system.",
+        "tags": [
+          "Tasks"
+        ],
+        "operationId": "getTasks",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "query",
+            "description": "The data received from the client specifying user preferences.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "function",
+            "in": "query",
+            "description": "The callback function to be called with the result.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Operation successful"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Input validation failed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/saveTask": {
+      "post": {
+        "summary": "Save a task to the system.",
+        "description": "Save a task to the system for future reference.",
+        "tags": [
+          "Tasks"
+        ],
+        "operationId": "saveTask",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "query",
+            "description": "The data received from the client specifying task details.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "function",
+            "in": "query",
+            "description": "The callback function to be called with the result.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": {
+              "description": "The task was saved successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Success"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": {
+              "description": "The task was not saved successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string",
+                    "example": "Bad request"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Bad request"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/removeTask": {
+      "post": {
+        "summary": "Remove a task from the system.",
+        "description": "Remove a specific task from the system.",
+        "tags": [
+          "Tasks"
+        ],
+        "operationId": "removeTask",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "query",
+            "description": "The data containing the task to remove.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "function",
+            "in": "query",
+            "description": "The callback function to be called with the result.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": {
+              "description": "The task was removed successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Success"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": {
+              "description": "The task was not removed successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string",
+                    "example": "Bad request"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Bad request"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getTaskDetails": {
+      "post": {
+        "summary": "Retrieve details of a specific task.",
+        "description": "Get detailed information about a specific task.",
+        "tags": [
+          "Tasks"
+        ],
+        "operationId": "getTaskDetails",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "query",
+            "description": "The data containing the task ID to retrieve details for.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "function",
+            "in": "query",
+            "description": "The callback function to be called with the result.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Operation successful"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Input validation failed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getUserPreferences": {
+      "post": {
+        "summary": "Retrieve user preferences.",
+        "description": "Get user preferences for task management.",
+        "tags": [
+          "Users",
+          "Preferences"
+        ],
+        "operationId": "getUserPreferences",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "query",
+            "description": "The data received from the client.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "function",
+            "in": "query",
+            "description": "The callback function to be called with the result.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Operation successful"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Input validation failed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/updateUserPreferences": {
+      "post": {
+        "summary": "Update user preferences.",
+        "description": "Update user preferences for task management.",
+        "tags": [
+          "Users",
+          "Preferences"
+        ],
+        "operationId": "updateUserPreferences",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "query",
+            "description": "The data containing the updated preferences.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "function",
+            "in": "query",
+            "description": "The callback function to be called with the result.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": {
+              "description": "The preferences were updated successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Success"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": {
+              "description": "The preferences were not updated successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string",
+                    "example": "Bad request"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Bad request"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getUserProfile": {
+      "post": {
+        "summary": "Retrieve user profile information.",
+        "description": "Get detailed information about the user profile.",
+        "tags": [
+          "Users",
+          "Profile"
+        ],
+        "operationId": "getUserProfile",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "query",
+            "description": "The data received from the client.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "function",
+            "in": "query",
+            "description": "The callback function to be called with the result.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Operation successful"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Input validation failed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/updateUserProfile": {
+      "post": {
+        "summary": "Update user profile information.",
+        "description": "Update the information of the user profile.",
+        "tags": [
+          "Users",
+          "Profile"
+        ],
+        "operationId": "updateUserProfile",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "query",
+            "description": "The data containing the updated profile information.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "function",
+            "in": "query",
+            "description": "The callback function to be called with the result.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": {
+              "description": "The profile was updated successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Success"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": {
+              "description": "The profile was not updated successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string",
+                    "example": "Bad request"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Bad request"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getSystemStatus": {
+      "post": {
+        "summary": "Retrieve system status information.",
+        "description": "Get the current status of the system.",
+        "tags": [
+          "System",
+          "Status"
+        ],
+        "operationId": "getSystemStatus",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "query",
+            "description": "The data received from the client.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "function",
+            "in": "query",
+            "description": "The callback function to be called with the result.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Operation successful"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Input validation failed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/restartSystem": {
+      "post": {
+        "summary": "Restart the system.",
+        "description": "Restart the entire system.",
+        "tags": [
+          "System"
+        ],
+        "operationId": "restartSystem",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "query",
+            "description": "The data received from the client.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "function",
+            "in": "query",
+            "description": "The callback function to be called with the result.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": {
+              "description": "The system was restarted successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example": "Success"
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": {
+              "description": "The system restart failed.",
+              "schema": {
+                "type": "object"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {}
+}
