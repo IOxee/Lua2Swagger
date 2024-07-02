@@ -30,9 +30,7 @@ Lua2Swagger bridges the gap between Lua scripting and API documentation by conve
    - When you run the software you have a custom menu with a few options, if you want modify any aspect use it to change the settings.
 
 ## Preview 📹
-https://github.com/IOxee/Lua2Swagger/assets/48241519/1aba0e56-0985-459a-a00d-713c5984a72f
-
-
+https://github.com/IOxee/Lua2Swagger/assets/48241519/fdfaa9cd-a2e8-4443-83c5-73d220bdd09f
 
 ## Contributing 🤝
 Your contributions are welcome! Feel free to fork the project and submit pull requests.
