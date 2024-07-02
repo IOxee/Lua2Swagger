@@ -13,7 +13,12 @@
   "author": "IOxee",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.19.2",
+    "http-server": "^14.1.1",
     "inquirer": "^9.3.2",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "open": "^10.1.0",
+    "swagger-editor": "^4.13.1",
+    "swagger-ui-express": "^5.0.1"
   }
 }

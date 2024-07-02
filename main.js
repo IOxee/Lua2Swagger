@@ -3,6 +3,10 @@ const fsp = require('fs');
 const path = require('path');
 const inquirer = require('./inquirer');
 const yaml = require('js-yaml');
+const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const readline = require('readline');
+const open = async () => (await import('open')).default;
 
 let projectName = '';
 let projectDescription = '';
@@ -147,6 +151,7 @@ async function saveOpenAPISpec(spec, filepath) {
         }
 
         console.log("OpenAPI Spec file saved successfully at:", filepath);
+        await serveAndOpenSwagger(filepath);
     } catch (error) {
         console.error("Error al guardar el archivo OpenAPI Spec:", error);
     }
@@ -329,7 +334,8 @@ async function settings() {
     ]);
 
     switch (menu) {
-        case "Output format (WIP)":
+        case "Output format":
+            actions("Output format");
             await handleOutputFormat(file);
             break;
         case "Back":
@@ -340,7 +346,21 @@ async function settings() {
     }
 }
 
+let lstActions = ""
+async function actions(action, clear = false) {
+    if (clear) {
+        lstActions = ""
+    }
+
+    console.clear();
+    lstActions += "> " + action + "\t"
+
+    console.log("\x1b[32m%s\x1b[0m", lstActions);
+}
+
+
 async function main() {
+    console.clear();
     let setts =  JSON.parse(await fs.readFile('settings.json', 'utf8'));
     const menu = await inquirer.showListPrompt("Select an option:", [
         "Generate API documentation",
@@ -349,25 +369,27 @@ async function main() {
 
     switch (menu) {
         case "Generate API documentation":
-            if (projectName === '') {
-                projectName = await inquirer.inputOption("Enter the name of the project (Leave empty to use default):");
-            }
-
-            if (projectDescription === '') {
-                projectDescription = await inquirer.inputOption("Enter the project description (Leave empty to use default):");
-            }
-
+            actions("Generate API documentation", true);
             const directory = setts.input_directory;
             const files = await listFiles(directory);
             if (files.length > 0) {
                 const selectedFile = await inquirer.showListPrompt("Select a file:", files);
+                actions(selectedFile);
                 const fullPath = path.join(directory, selectedFile);
+
+                if (projectName === '') {
+                    projectName = await inquirer.inputOption("Enter the name of the project (Leave empty to use default):");
+                }
+    
+                if (projectDescription === '') {
+                    projectDescription = await inquirer.inputOption("Enter the project description (Leave empty to use default):");
+                }
 
                 const content = await readFileContent(fullPath);
                 if (content) {
                     const endpoints = await findNomenclatures(content);
                     const openAPISpec = createOpenAPISpec(endpoints);
-                    await saveOpenAPISpec(openAPISpec, 'output/' + selectedFile.replace('.lua', '.json'));
+                    await saveOpenAPISpec(openAPISpec, setts.output_directory + '/' + selectedFile.replace('.lua', '.json'));
                 }
             } else {
                 console.log("There are no files in the folder.");
@@ -375,6 +397,7 @@ async function main() {
             }
             break;
         case "Settings":
+            actions("Settings", true);
             settings();
             break;
         default:
@@ -385,5 +408,50 @@ async function main() {
 }
 
 
+async function serveAndOpenSwagger(filePath) {
+    actions("Serve and Open Swagger");
+    let setts = JSON.parse(await fs.readFile('settings.json', 'utf8'));
+    const app = express();
+    let swaggerDocument;
+
+    try {
+        const data = await fs.readFile(filePath, 'utf8');
+        swaggerDocument = JSON.parse(data);
+    } catch (err) {
+        console.error('Error reading Swagger JSON:', err);
+        return;
+    }
+
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    const server = app.listen(setts.swagger_port, async () => {
+        console.log(`Swagger UI is running at http://localhost:${setts.swagger_port}/api-docs`);
+        const openModule = await open();
+        openModule(`http://localhost:${setts.swagger_port}/api-docs`, { wait: true });
+
+        const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+
+        rl.question('\nC for close all \nR to back menu \nPress ANY Key: ', async (answer) => {
+            rl.close();
+            if (answer === 'C' || answer === 'c') {
+                server.close();
+            }
+
+            if (answer === 'R' || answer === 'r') {
+                server.close(() => {
+                    main();
+                });
+            }
+
+            if (answer !== 'C' && answer !== 'c' && answer !== 'R' && answer !== 'r') {
+                console.clear();
+                console.log('Invalid option. Closing application...');
+                server.close();
+            }
+        });
+    });
+}
 
 main();

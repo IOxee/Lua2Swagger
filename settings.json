@@ -1,5 +1,6 @@
 {
   "format": "json",
-  "output_directory": {},
-  "input_directory": "input"
+  "output_directory": "output",
+  "input_directory": "input",
+  "swagger_port": 3000
 }
